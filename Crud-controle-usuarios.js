@@ -19,10 +19,10 @@ function cadastrarusuario() {
         perguntar('Idade: ', (idade) => {
             perguntar('CPF: ', (CPF) => {
                 nome = nome.trim();
-                idade = idade.trim();
+                idade = +idade;
                 CPF = +CPF;
 
-                if (!nome || !idade || Number.isNaN(CPF)) {
+                if (!nome || Number.isNaN(idade) || Number.isNaN(CPF)) {
                     console.log('Dados errados');
 
                     return menu();
@@ -43,6 +43,20 @@ function cadastrarusuario() {
             });
         });
     });
+}
+
+function listarusuarios() {
+    console.log('Listar usuarios');
+
+    if (Usuarios.length === 0) {
+        console.log('Nenhum usuario cadastrado');
+    }
+
+    for (let i = 0; i < Usuarios.length; i++) {
+        const U = Usuarios[i];
+        console.log('Nome: ', U.nome, '|','Idade: ', U.idade, '|' , 'CPF: ', U.CPF);
+    }
+    menu();
 }
 
 function mostrarmenu() {
