@@ -3,9 +3,45 @@ const rl = require('readline').createInterface({
     output: process.stdout,
 });
 
+let Usuarios = [];
+let proximoID = 1;
+
 function perguntar(txt, callback) {
     rl.question(txt, (resposta) => {
         callback(resposta);
+    });
+}
+
+function cadastrarusuario() {
+    console.log('Cadastrar Usuario');
+
+    perguntar('Nome: ', (nome) => {
+        perguntar('Idade: ', (idade) => {
+            perguntar('CPF: ', (CPF) => {
+                nome = nome.trim();
+                idade = idade.trim();
+                CPF = +CPF;
+
+                if (!nome || !idade || Number.isNaN(CPF)) {
+                    console.log('Dados errados');
+
+                    return menu();
+                }
+
+                const user = {
+                    id: proximoID,
+                    nome: nome,
+                    idade: idade,
+                    CPF: CPF,
+                }
+
+                Usuarios.push(user);
+                proximoID++;
+
+                console.log('Usuario cadastrado com sucesso', user.id);
+                menu();
+            });
+        });
     });
 }
 
@@ -53,5 +89,7 @@ function menu() {
                     console.log('Opção invalida');
                     return menu();
         }
-    })
+    });
 }
+
+menu();
