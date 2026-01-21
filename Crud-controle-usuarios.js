@@ -69,6 +69,68 @@ function listarusuarios() {
     menu();
 }
 
+function editarusuario() {
+    console.log('Editar usuario');
+
+    perguntar('Digite o ID: ', (idStr) => {
+        const id = +idStr;
+
+        if (Number.isNaN(id)) {
+            console.log('Dados errados');
+
+            return menu();
+        }
+
+        const Posicao = AcharIndicePorID(id);
+
+        if (Posicao === -1) {
+            console.log('Usuario nao encontrado');
+
+            return menu();
+        }
+
+        let usuario = Usuarios[Posicao]
+
+        perguntar(`Novo nome (${usuario.nome}): `, (NovoNome) => {
+            perguntar(`Nova idade (${usuario.idade}): `, (NovaIdade) => {
+                perguntar(`Novo CPF (${usuario.CPF}): `, (NovoCPF) => {
+                    NovoNome = NovoNome.trim();
+                    NovaIdade = +NovaIdade;
+                    NovoCPF = +NovoCPF;
+
+                    if (NovoNome) {
+                        Usuarios.nome = NovoNome
+                    }
+
+                    if (NovaIdade) {
+
+                        if (Number.isNaN(NovaIdade)) {
+                            console.log('Dados errados');
+
+                            return menu();
+                        }
+
+                        Usuarios.idade = NovaIdade;
+                    }
+
+                    if (NovoCPF) {
+
+                        if (Number.isNaN(NovoCPF)) {
+                            console.log('Dados errados');
+
+                            return menu();
+                        }
+
+                        Usuarios.CPF = NovoCPF;
+                    }
+                    console.log('Usuario editado com sucesso');
+                    menu();
+                }); 
+            });
+        });
+    });
+}
+
 function deletarusuario() {
     console.log('Deletar usuario');
 
