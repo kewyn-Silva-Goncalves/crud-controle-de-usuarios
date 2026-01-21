@@ -69,6 +69,34 @@ function listarusuarios() {
     menu();
 }
 
+function vizualizarporID() {
+    console.log('Vizualizar por ID');
+
+    perguntar('Digite o ID: ', (idStr) => {
+        const id = +idStr;
+
+        if (Number.isNaN(id)) {
+            console.log('Dados errados');
+
+            return menu();
+        }
+
+        const Posicao = AcharIndicePorID(id);
+
+        if (Posicao === -1) {
+            console.log('Usuario nao encontrado');
+
+            return menu();
+        } else {
+            for (let i = 0; i < Usuarios.length; i++) {
+                const U = Usuarios[i];
+                console.log('Nome: ', U.nome, '|', 'Idade: ', U.idade, '|', 'CPF: ', U.CPF);
+            }
+        }
+        menu();
+    });
+}
+
 function editarusuario() {
     console.log('Editar usuario');
 
